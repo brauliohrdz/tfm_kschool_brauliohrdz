@@ -332,7 +332,7 @@ class ExperimentOrchestrator:
         self.inference_pipeline = InferencePipeline()
         self.evaluation_pipeline = EvaluationPipeline()
 
-    def prepare_data(self, limit: int | None = None) -> ExperimentData:
+    def prepare_data(self, limit: int | None = None, use_extraction: bool = True) -> ExperimentData:
         """Carga y prepara datos para experimentos (reutilizable)."""
         csv_documents = self.data_loader.load_csv_documents()
 
@@ -340,7 +340,13 @@ class ExperimentOrchestrator:
             csv_documents = csv_documents[:limit]
             console.print(f"[yellow]Limitando a {limit} documentos[/yellow]")
 
-        extracted_documents = self.extraction_pipeline.run_extraction(csv_documents)
+        if use_extraction:
+            console.print("[blue]Extrayendo datos de imágenes...[/blue]")
+            extracted_documents = self.extraction_pipeline.run_extraction(csv_documents)
+        else:
+            console.print("[blue]Usando datos directamente del CSV...[/blue]")
+            extracted_documents = [document_data_from_csv_document(doc) for doc in csv_documents]
+
         inference_results = self.inference_pipeline.run_inference(extracted_documents, csv_documents)
 
         return ExperimentData(
@@ -383,7 +389,7 @@ def run_inference_standalone(limit: int | None, threshold: float):
     console.print("[bold green]Iniciando inferencia standalone[/bold green]")
 
     orchestrator = ExperimentOrchestrator()
-    experiment_data = orchestrator.prepare_data(limit)
+    experiment_data = orchestrator.prepare_data(limit, use_extraction=False)
 
     orchestrator.evaluation_pipeline.evaluate_model(
         experiment_data.csv_documents,

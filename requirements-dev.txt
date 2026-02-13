@@ -1,0 +1,19 @@
+# Linting and formatting tools
+black>=23.0.0
+pylint>=2.17.0
+isort>=5.12.0
+
+# Type checking
+mypy>=1.0.0
+
+# Testing tools
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
+# Development tools
+pre-commit>=3.0.0
+flake8>=6.0.0
+
+# Documentation
+sphinx>=6.0.0
+sphinx-rtd-theme>=1.2.0

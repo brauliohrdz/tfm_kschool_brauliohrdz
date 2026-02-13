@@ -4,7 +4,47 @@
 
 Sistema completo para el modelo KYC (Know Your Customer) que implementa un pipeline de machine learning para la detección de fraudes en documentos de identidad. El sistema combina técnicas de extracción de datos usando OCR, validación de información con modelos de lenguaje (LLM), y reconocimiento facial para generar un score de riesgo. Incluye herramientas de evaluación robustas con métricas de clasificación, análisis de thresholds y visualizaciones interactivas usando Rich. El proyecto está diseñado para experimentación y optimización continua del modelo con diferentes configuraciones y parámetros.
 
-## 📁 Estructura del Proyecto
+## �️ Instalación
+
+### Requisitos Previos
+
+- Python 3.12
+- Mamba (recomendado) o Conda
+
+### Instalación con Mamba
+
+1. **Crear el entorno con Python 3.12:**
+
+```bash
+mamba create -n kyc_env python=3.12 -y
+```
+
+2. **Activar el entorno:**
+
+```bash
+mamba activate kyc_env
+```
+
+3. **Instalar dependencias:**
+
+```bash
+mamba install -c conda-forge pandas click rich matplotlib numpy -y
+```
+
+4. **Instalar dependencias adicionales si es necesario:**
+
+```bash
+pip install -r requirements.txt  # si existe el archivo
+```
+
+### Verificación de Instalación
+
+```bash
+python --version  # Debe mostrar Python 3.12.x
+mamba list  # Verificar paquetes instalados
+```
+
+## � Estructura del Proyecto
 
 ```
 kyc_tfm_kschool/
@@ -31,10 +71,11 @@ kyc_tfm_kschool/
 
 ## Requisitos
 
-Asegúrate de tener el entorno `kyc_env` activado:
+Asegúrate de tener el entorno `kyc_env` activado con Python 3.12:
 
 ```bash
 mamba activate kyc_env
+python --version  # Debe mostrar Python 3.12.x
 ```
 
 ## Dataset

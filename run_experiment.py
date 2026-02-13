@@ -25,7 +25,9 @@ from rich.console import Console
 from rich.progress import BarColumn, Progress, SpinnerColumn, TaskProgressColumn, TextColumn
 
 from evaluations.data_extraction_evaulator import DataExtractionEvaluator
-from evaluations.model_evaluation import ModelEvaluation, ScoreConfig, DocumentScorer
+from evaluations.model_evaluation import ModelEvaluation, ScoreConfig
+from kyc_model.classification import DocumentClassifier
+from kyc_model.classification.document_classifier import ClassificationResult
 from kyc_model.extractor import DocumentDataExtractor
 from kyc_model.extractor.entities import DocumentData
 from kyc_model.extractor.extractor import DocumentFaceExtractor
@@ -130,15 +132,18 @@ def calculate_dni_score(document_data: DocumentData) -> ScoringValue:
     return ScoringValue(section_name="dni_data", value=score)
 
 
+# Funciones de clasificación extraídas a kyc_model.classification.DocumentClassifier
+# Mantenidas para compatibilidad temporal
 def compute_document_score(inference_data: dict[str, float]) -> float:
-    """Calcula el score del documento usando DocumentScorer."""
-    scorer = DocumentScorer()
-    return scorer.document_score(inference_data)
+    """Calcula el score del documento usando DocumentClassifier (función de compatibilidad)."""
+    classifier = DocumentClassifier()
+    return classifier.compute_document_score(inference_data)
 
 
 def document_is_legit(document_data: DocumentData, inference_data: dict[str, float], threshold: float):
-    score = compute_document_score(inference_data)
-    return score >= threshold
+    """Determina si el documento es legítimo usando DocumentClassifier (función de compatibilidad)."""
+    classifier = DocumentClassifier()
+    return classifier.is_legitimate(inference_data, threshold)
 
 
 @dataclass(frozen=True)
@@ -304,6 +309,7 @@ class EvaluationPipeline:
 
     def __init__(self, config: ScoreConfig = ScoreConfig()):
         self.evaluator = ModelEvaluation(config)
+        self.classifier = DocumentClassifier()
 
     def evaluate_model(
         self,
@@ -321,6 +327,14 @@ class EvaluationPipeline:
             threshold=threshold,
             save_plot=False,
         )
+    
+    def classify_documents(
+        self,
+        inference_results: dict[str, dict[str, float]],
+        threshold: float = 6.2,
+    ) -> List[ClassificationResult]:
+        """Clasifica documentos usando el DocumentClassifier."""
+        return self.classifier.classify_batch(inference_results, threshold)
 
 
 class ExperimentOrchestrator:

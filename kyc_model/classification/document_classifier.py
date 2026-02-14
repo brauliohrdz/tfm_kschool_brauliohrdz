@@ -34,7 +34,7 @@ class DocumentClassifier:
     DEFAULT_SECTION_WEIGHTS = {
         "name_authenticity": 0.35,  # Autenticidad del nombre (35%)
         "dni_data": 0.40,          # Validación DNI (40%)
-        "selfie_authenticity": 0.25 # Autenticidad facial (25%)
+        "selfie_authenticity": 0.25  # Autenticidad facial (25%)
     }
     
     # Score máximo posible

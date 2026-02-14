@@ -1,4 +1,4 @@
-# KYC Model - Sistema de Experimentos
+# KYC Model
 
 ## 📋 Descripción del Proyecto
 
@@ -54,7 +54,8 @@ kyc_tfm_kschool/
 │   └── fraud/                  # Documentos fraudulentos
 ├── kyc_model/                  # Core del modelo
 │   ├── extractor/              # Módulos de extracción OCR
-│   └── inference/             # Lógica de inferencia y validación
+│   ├── inference/             # Lógica de inferencia y validación
+│   └── classification/        # Motor de scoring y clasificación
 ├── evaluations/               # Sistema de evaluación
 │   ├── model_evaluation.py    # Métricas y reportes del modelo
 │   └── data_extraction_evaulator.py  # Evaluación de extracción
@@ -65,7 +66,8 @@ kyc_tfm_kschool/
 **Directorios Principales:**
 
 - **dataset/**: Contiene los datos de entrenamiento y prueba con documentos legítimos y fraudulentos
-- **kyc_model/**: Implementación del modelo incluyendo extracción OCR, validación LLM y reconocimiento facial
+- **kyc_model/**: Implementación del modelo incluyendo extracción OCR, validación LLM, reconocimiento facial y clasificación
+- **kyc_model/classification/**: Motor central de scoring y lógica de decisión
 - **evaluations/**: Sistema completo de evaluación con métricas, visualizaciones y análisis de rendimiento
 - **run_experiment.py**: Interfaz CLI unificada para ejecutar todos los experimentos del sistema
 

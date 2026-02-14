@@ -3,11 +3,11 @@ opencv-python==4.13.0.92
 numpy==2.4.2
 pytesseract==0.3.13
 Pillow==12.1.0
-torch
-facenet-pytorch
+torch==2.10.0
+facenet-pytorch==2.5.3
 transformers==5.1.0
 matplotlib==3.10.8
 rich
 click
 tqdm
-scikit-learn
+scikit-learn==1.8.0
